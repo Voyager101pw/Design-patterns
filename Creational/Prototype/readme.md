@@ -1,6 +1,8 @@
 # Прототип
 Паттерн с помощью которого можно создать копию объекта, везде где это требуется.  
 
+![image](https://user-images.githubusercontent.com/78823465/202276511-5c521ab8-1c75-4b01-8b52-c28200c21b62.png)
+
 
 ```ts
 interface GitAPI {
