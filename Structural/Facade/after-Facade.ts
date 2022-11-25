@@ -32,20 +32,25 @@ class Car {
   }
 }
 
-class Facade {
-  static startEngineCar() {
-    const car = new Car();
-    car.setUpAcc();
-    car.activeKey();
-    car.startEngine();
+class CarFacade {
+  public car: Car;
+
+  constructor() {
+    this.car = new Car();
+  }
+
+  startEngineCar() {
+    this.car.setUpAcc();
+    this.car.activeKey();
+    this.car.startEngine();
   }
 }
 
 
-// Класс Facade реализует паттерн Фасад,
-// предоставляет простой API ввиде метода startEngineCar 
+// CarFacade предоставляет простой API ввиде метода startEngineCar 
 // которй снимает с нас необходимость
 // - вникать в детали реализации класса Car
 // - знать правильный порядок вызовов
 // - знать только нужные методы для вычисления результата
-Facade.startEngineCar();
+const car = new CarFacade();
+car.startEngineCar();
