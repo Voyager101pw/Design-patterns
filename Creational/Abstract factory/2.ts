@@ -29,8 +29,8 @@ class IronMaster implements Master {
 
 
 interface DoorFactory { // Абстрактная фабрика
-  makeDoor: () => void;
-  makeMaster: () => void;
+  makeDoor: () => Door;
+  makeMaster: () => Master;
 }
 // Теперь у нас есть абстрактная фабрика, которая позволит создать
 // семейство связанных объектов, например:

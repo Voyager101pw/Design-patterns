@@ -1,26 +1,36 @@
-interface ISquare {
-  getWidth: () => string;
-  getHeight: () => string;
-  calcSquare: () => string;
+interface Shape {
+  draw: () => void;
 }
 
-class Square implements ISquare {
-  constructor(public width: number, public height: number) {
-    this.width = width;
-    this.height = height;
+class Square implements Shape {
+  draw() {
+    console.log("Нарисован квадарт")
   }
+}
 
-  getWidth = () => `${this.width} cm`;
-  getHeight = () => `${this.height} cm`;
-  calcSquare = () => `${this.width * this.height} cm^2`;
+class Triangle implements Shape {
+  draw() {
+    console.log("Нарисован треугольник")
+  }
+}
+
+class Circle implements Shape {
+  draw() {
+    console.log("Нарисован круг")
+  }
 }
 
 class SimpleFactory {
-  createSquare = (width: number, height: number) => new Square(width, height);
+  // createShape - общий интерфейс для создания разных фигур
+  createShape(name: 'square'| 'triangle' | 'circle') {
+    if (name === "square") return new Square();
+    if (name === "triangle") return new Triangle();
+    if (name === "circle") return new Circle();
+    return null;
+  }
 }
 
 const simpleFactory = new SimpleFactory();
-const square1 = simpleFactory.createSquare(5, 5);
-const square2 = simpleFactory.createSquare(10, 10);
-console.log(square1.calcSquare()); // 25 cm^2
-console.log(square2.calcSquare()); // 100 cm^2
+simpleFactory.createShape('square')?.draw();   // Нарисован квадарт
+simpleFactory.createShape('triangle')?.draw(); // Нарисован треугольник
+simpleFactory.createShape('circle')?.draw();   // Нарисован круг
