@@ -1,89 +1,34 @@
-interface ISedan {
-  marka: string;
-  type: string;
-  model: string;
-  maxSpeed: number;
-  // others fields ...
-}
-interface ICoupe {
-  marka: string;
-  type: string;
-  model: string;
-  maxSpeed: number;
-  // others fields ...
-}
+interface AbstractSedan {}
+class SedanA implements AbstractSedan {}
+class SedanB implements AbstractSedan {}
 
-// Абстрактная фабрика фабрик
-interface CarsFactory {
-  createSedan: (model: string, maxSpeed: number) => ISedan;
-  createCoupe: (model: string, maxSpeed: number) => ICoupe;
+interface AbstractCoupe {}
+class CoupeA implements AbstractSedan {}
+class CoupeB implements AbstractSedan {}
+
+interface AbstractFactory {
+  createSedan: () => AbstractSedan; // createSedan === factoryMethod
+  createCoupe: () => AbstractCoupe; // createCoupe === factoryMethod
+  // Abstract factory - image: https://i.stack.imgur.com/wEM91.png
+  // Factory method vs Abstract factory:
+  // https://stackoverflow.com/a/20648565
+  // https://stackoverflow.com/a/2632054
 }
 
-// Конкретная фабрика
-class ToyotaFactory implements CarsFactory {
-  marka = 'Toyota';
-
-  // Concrete sedan 
-  createSedan(model: string, maxSpeed: number) {
-    console.log(`Седан ${this.marka} ${model} был изготовлен!`);
-    const sedan = {
-      marka: this.marka,
-      type: 'sedan',
-      model,
-      maxSpeed,
-    };
-    return sedan;
+class ConcreteFactory1 implements AbstractFactory {
+  createSedan() {
+    return new SedanA();
   }
-
-  // Concrete coupe
-  createCoupe(model: string, maxSpeed: number) {
-    console.log(`Купе ${this.marka} ${model} был изготовлен!`);
-    const coupe = {
-      marka: this.marka,
-      type: 'coupe',
-      model,
-      maxSpeed,
-    };
-    return coupe;
+  createCoupe() {
+    return new CoupeB();
   }
 }
 
-class FordFactory implements CarsFactory {
-  marka = 'Ford';
-
-  createSedan(model: string, maxSpeed: number) {
-    console.log(`Седан ${this.marka} ${model} был изготовлен!`);
-    const sedan = {
-      marka: this.marka,
-      type: 'sedan',
-      model,
-      maxSpeed,
-    };
-    return sedan;
+class ConcreteFactory2 implements AbstractFactory {
+  createSedan() {
+    return new SedanA();
   }
-
-  createCoupe(model: string, maxSpeed: number) {
-    console.log(`Купе ${this.marka} ${model} был изготовлен!`);
-    const coupe = {
-      marka: this.marka,
-      type: 'coupe',
-      model,
-      maxSpeed,
-    };
-    return coupe;
+  createCoupe() {
+    return new CoupeB();
   }
 }
-
-
-const toyotaFactory = new ToyotaFactory();
-const camry = toyotaFactory.createSedan('Сamry', 240);
-
-/*
-  Седан Toyota Сamry был изготовлен!
-  {
-    marka: 'Toyota',
-    type: 'sedan',
-    model: 'Сamry',
-    maxSpeed: 240 
-  }
-*/
