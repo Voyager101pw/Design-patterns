@@ -1,36 +1,25 @@
-interface Shape {
-  draw: () => void;
-}
+interface Fruit {}
+class Apple implements Fruit  { /* creation logic */ }
+class Banana implements Fruit { /* creation logic */ }
+class Cherry implements Fruit { /* creation logic */ }
 
-class Square implements Shape {
-  draw() {
-    console.log("Нарисован квадарт")
+class SimplyFactory {
+  static createFruit(name: string): Fruit {
+    switch (name) {
+      case 'apple':  return new Apple();
+      case 'banana': return new Banana();
+      case 'cherry': return new Cherry();
+    }
+    return null as unknown as Fruit;
   }
 }
 
-class Triangle implements Shape {
-  draw() {
-    console.log("Нарисован треугольник")
-  }
-}
+SimplyFactory.createFruit('apple')  // Apple {}
+SimplyFactory.createFruit('banana') // Banana {}
+SimplyFactory.createFruit('cherry') // Cherry {}
 
-class Circle implements Shape {
-  draw() {
-    console.log("Нарисован круг")
-  }
-}
-
-class SimpleFactory {
-  // createShape - общий интерфейс для создания разных фигур
-  createShape(name: 'square'| 'triangle' | 'circle') {
-    if (name === "square") return new Square();
-    if (name === "triangle") return new Triangle();
-    if (name === "circle") return new Circle();
-    return null;
-  }
-}
-
-const simpleFactory = new SimpleFactory();
-simpleFactory.createShape('square')?.draw();   // Нарисован квадарт
-simpleFactory.createShape('triangle')?.draw(); // Нарисован треугольник
-simpleFactory.createShape('circle')?.draw();   // Нарисован круг
+// Плюсы:
+// Не раскрывает логику создания клиенту.
+// Инкапсулирует создание объекта в одном месте.
+// Сокращает повторяющийся код, применяя DRY
+// Обращаться к вновь созданным объектам, используя общий интерфейс.
